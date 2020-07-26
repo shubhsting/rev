@@ -111,4 +111,47 @@ public class L002 {
         return res;
     }
 
+    public static void topologicalsortcycle() {
+        int[] vis = new int[N];
+        boolean res = false;
+        ArrayList<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < N; i++) {
+            res = res || topologicalsortcycle_(i, vis, ans);
+        }
+        if (!res)
+            for (int i = ans.size() - 1; i >= 0; i--)
+                System.out.println(ans.get(i));
+        else
+            System.out.println("Cycle");
+    }
+
+    public static void SCC() {
+        boolean[] vis = new boolean[N];
+        ArrayList<Integer> ans = new ArrayList<>();
+        for (int i = 0; i < N; i++)
+            if (!vis[i])
+                topologicalsort_(i, vis, ans);
+        ArrayList<Integer>[] ngraph = new ArrayList[N];
+        for (int i = 0; i < N; i++) {
+            for (Integer ele : graph[i])
+                ngraph[ele].add(i);
+        }
+        vis = new boolean[N];
+        for (int i = ans.size() - 1; i >= 0; i--)
+            if (!vis[i]) {
+                ArrayList<Integer> ans_ = new ArrayList<>();
+                System.out.println(dfs_SCC(ans.get(i), ngraph, vis, ans_));
+                System.out.println(ans_);
+            }
+    }
+
+    public static int dfs_SCC(int src, ArrayList<Integer>[] ngraph, boolean[] vis, ArrayList<Integer> ans) {
+        vis[src] = true;
+        int count = 0;
+        for (Integer ele : ngraph[src])
+            if (!vis[ele])
+                count += dfs_SCC(ele, ngraph, vis, ans);
+        ans.add(src);
+        return count + 1;
+    }
 }
