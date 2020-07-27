@@ -4,9 +4,10 @@ import java.util.*;
 public class L002 {
     public static void main(String[] args) {
         constructGraph();
+        topologicalsort();
     }
 
-    public static int N = 8;
+    public static int N = 6;
     public static ArrayList<Integer>[] graph;
 
     public static void display() {
@@ -28,15 +29,14 @@ public class L002 {
             graph[i] = new ArrayList<Integer>();
         }
 
-        graph[7].add(5);
-        graph[7].add(6);
-        graph[5].add(4);
+        
+        graph[5].add(0);
         graph[5].add(2);
-        graph[6].add(4);
-        graph[6].add(3);
-        graph[2].add(1);
+        graph[4].add(0);
+        graph[4].add(1);
+        graph[2].add(3);
         graph[3].add(1);
-        graph[1].add(0);
+       
 
         display();
     }
