@@ -388,4 +388,19 @@ public class L001 {
         }
         return dp[N][M];
     }
+
+    // coin change /target type
+
+    public static int coinchangepermutation(int[] arr, int tar, int[] dp) {
+        if (tar == 0)
+            return dp[tar] = 1;
+        if (dp[tar] != 0)
+            return dp[tar];
+        int count = 0;
+        for (int ele : arr)
+            if (tar - ele > 0)
+                count += coinchangepermutation(arr, tar - ele, dp);
+        return dp[tar] = count;
+    }
+
 }
